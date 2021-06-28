@@ -145,7 +145,6 @@
 				B296D4B140A59CD8BCD9F97D /* Pods-pokemon-pokemonTests.debug.xcconfig */,
 				24BBAE2BC4CB89F87A9F79F6 /* Pods-pokemon-pokemonTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
