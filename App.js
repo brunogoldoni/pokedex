@@ -10,15 +10,18 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {AlertProvider} from './src/context/AlertContext';
 
 import Routes from './src/routes';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="light-content" />
-      <Routes />
-    </NavigationContainer>
+    <AlertProvider>
+      <NavigationContainer>
+        <StatusBar barStyle="light-content" />
+        <Routes />
+      </NavigationContainer>
+    </AlertProvider>
   );
 };
 
