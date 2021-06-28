@@ -14,14 +14,18 @@ import {AlertProvider} from './src/context/AlertContext';
 
 import Routes from './src/routes';
 
+import {Container} from './src/styles/global';
+
 const App = () => {
   return (
-    <AlertProvider>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <Routes />
-      </NavigationContainer>
-    </AlertProvider>
+    <Container>
+      <AlertProvider>
+        <NavigationContainer>
+          <StatusBar barStyle="light-content" backgroundColor="#000" />
+          <Routes />
+        </NavigationContainer>
+      </AlertProvider>
+    </Container>
   );
 };
 
