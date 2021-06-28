@@ -6,7 +6,7 @@ import {RefreshControl} from 'react-native';
 import api from '../../services/api';
 
 import {useAlert} from '../../context/AlertContext';
-import {CardList, EmptyComponent} from '../../components';
+import {CardList, EmptyComponent, Loading} from '../../components';
 
 import {PokemonGO} from '../icons';
 
@@ -120,25 +120,29 @@ const Home = () => {
           <PokemonGO />
         </WrapperItems>
 
-        <WrapperList>
-          <List
-            data={pokemonList}
-            renderItem={item => <PokemonItems item={item} />}
-            onEndReachedThreshold={0.5}
-            onEndReached={() => onEndReached()}
-            ListEmptyComponent={
-              <EmptyComponent message="Não foram encontrados Pokémons" />
-            }
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            refreshControl={
-              <RefreshControl
-                refreshing={isLoading}
-                onRefresh={() => getAllPokemons(0)}
-              />
-            }
-          />
-        </WrapperList>
+        {isLoading ? (
+          <Loading size="large" />
+        ) : (
+          <WrapperList>
+            <List
+              data={pokemonList}
+              renderItem={item => <PokemonItems item={item} />}
+              onEndReachedThreshold={0.5}
+              onEndReached={() => onEndReached()}
+              ListEmptyComponent={
+                <EmptyComponent message="Não foram encontrados Pokémons" />
+              }
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isLoading}
+                  onRefresh={() => getAllPokemons(0)}
+                />
+              }
+            />
+          </WrapperList>
+        )}
       </Content>
     </Container>
   );
