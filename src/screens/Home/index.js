@@ -129,14 +129,14 @@ const Home = () => {
           <WrapperList>
             <List
               data={pokemonList}
-              renderItem={item => <PokemonItems item={item} />}
-              onEndReachedThreshold={0.5}
+              onEndReachedThreshold={1}
               onEndReached={() => onEndReached()}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={item => <PokemonItems item={item} />}
               ListEmptyComponent={
                 <EmptyComponent message="Não foram encontrados Pokémons" />
               }
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
               refreshControl={
                 <RefreshControl
                   refreshing={isLoading}
