@@ -2,6 +2,7 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native';
+import {useSelector} from 'react-redux';
 
 import api from '../../services/api';
 
@@ -26,6 +27,8 @@ import {Container} from '../styles';
 const Home = () => {
   const navigation = useNavigation();
   const {AlertService} = useAlert();
+
+  const {nickName} = useSelector(state => state.user);
 
   const limitPagination = 20;
 
@@ -109,7 +112,7 @@ const Home = () => {
       <Content>
         <WrapperGrettings>
           <GrettingsText>{grettings} </GrettingsText>
-          <NickName>GOH.</NickName>
+          <NickName>{nickName}.</NickName>
         </WrapperGrettings>
 
         <WrapperItems>

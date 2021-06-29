@@ -7,9 +7,9 @@ export const Container = styled(TextInput).attrs({})`
   background-color: ${colors.mediumDark};
   color: ${colors.white};
   border-radius: 10px;
-  height: 48px;
-  font-size: 16px;
-  font-weight: 600;
+  height: 56px;
+  font-size: 18px;
+  font-weight: 700;
   margin-top: 24px;
   padding: 16px;
   width: 100%;
