@@ -3,7 +3,7 @@
 ### Aplicação para listar e visualizar informações dos pokemons!
 
 #### Layout:
-  ![Screen 1](https://github.com/brunogoldoni/pokedex-assets/blob/master/Introduction.png)  _  ![Screen 2](https://github.com/brunogoldoni/pokedex-assets/blob/master/Home.png)   _  ![Screen 3](https://github.com/brunogoldoni/pokedex-assets/blob/master/Infos.png)
+![SplashScreen](https://github.com/brunogoldoni/pokedex-assets/blob/master/splash-screen.png)_![Screen 1](https://github.com/brunogoldoni/pokedex-assets/blob/master/Introduction.png)_![Screen 2](https://github.com/brunogoldoni/pokedex-assets/blob/master/Home.png)_![Screen 3](https://github.com/brunogoldoni/pokedex-assets/blob/master/Infos.png)
 
 #### Tecnologias - Front-end:
 
