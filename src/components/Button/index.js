@@ -2,9 +2,9 @@ import React from 'react';
 
 import {Container, Label} from './styles';
 
-const Button = ({onPress, label}) => {
+const Button = ({onPress, disabled, label}) => {
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} disabled={disabled}>
       <Label>{label}</Label>
     </Container>
   );

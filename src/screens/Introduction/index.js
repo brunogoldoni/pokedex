@@ -38,7 +38,11 @@ const Introduction = () => {
           />
         </WrapperInput>
 
-        <Button onPress={() => handleSetUser()} label="Entrar" />
+        <Button
+          label="Entrar"
+          disabled={!nickName}
+          onPress={() => handleSetUser()}
+        />
       </Footer>
     </Container>
   );
