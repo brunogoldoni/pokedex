@@ -35,7 +35,7 @@ Opte pelo que tiver preferência.
   - npm ios
   - npm android
 
-### Clonando Projetop em sua Máquina
+### Clonando Projeto em sua Máquina
 
 Entre no diretório de sua preferência pelo SHELL e cole o seguinte código:
   - git clone https://github.com/brunogoldoni/pokedex
