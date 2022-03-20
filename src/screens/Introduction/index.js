@@ -8,8 +8,8 @@ import {Input, Button} from '../../components';
 
 import {colors} from '../../styles/colors';
 
-import {Container} from '../styles';
-import {Content, IMGIntroduction, Footer, WrapperInput} from './styles';
+import {Container, Footer, WrapperInput} from '../styles';
+import {Content, IMGIntroduction} from './styles';
 
 const Introduction = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const Introduction = () => {
   const handleSetUser = text => {
     dispatch(setUser(nickName));
 
-    navigation.navigate('Home');
+    navigation.navigate('SignIn');
   };
 
   return (
@@ -32,14 +32,15 @@ const Introduction = () => {
       <Footer>
         <WrapperInput>
           <Input
-            placeholder="Digite seu nick name"
+            // returnKeyType='Send'
+            placeholder="Digite seu apelido"
             onChangeText={text => setNickName(text)}
             placeholderTextColor={`${colors.phTextColor}`}
           />
         </WrapperInput>
 
         <Button
-          label="Entrar"
+          label="Avançar"
           disabled={!nickName}
           onPress={() => handleSetUser()}
         />

@@ -7,14 +7,4 @@ export const Content = styled.View`
   padding: 24px;
 `;
 
-export const WrapperInput = styled.View`
-  margin-bottom: 16px;
-`;
-
 export const IMGIntroduction = styled(Image).attrs({})``;
-
-export const Footer = styled.View`
-  justify-content: flex-end;
-  padding: 24px;
-  flex: 1;
-`;

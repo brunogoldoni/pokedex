@@ -22,3 +22,13 @@ export const Container = ({children}) => (
     <SafeArea>{children}</SafeArea>
   </WrapperContainer>
 );
+
+export const WrapperInput = styled.KeyboardAvoidingView`
+  margin-bottom: 16px;
+`;
+
+export const Footer = styled.View`
+  justify-content: flex-end;
+  padding: 24px;
+  flex: 1;
+`;
