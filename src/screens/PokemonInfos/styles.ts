@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {Image, ScrollView, ScrolView} from 'react-native';
+import {Image, ScrollView} from 'react-native';
 
 import {colors} from '../../styles/colors';
 

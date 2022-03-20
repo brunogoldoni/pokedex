@@ -2,10 +2,15 @@ import React from 'react';
 
 import {Container} from './styles';
 
-const Input = ({onChangeText, placeholder, placeholderTextColor, ...props}) => {
+interface IInput {
+  onChangeText(): void,
+  placeholder: string,
+  placeholderTextColor: string,
+}
+
+const Input = ({onChangeText, placeholder, placeholderTextColor, ...props}: IInput) => {
   return (
     <Container
-      type="text"
       placeholder={placeholder}
       onChangeText={onChangeText}
       placeholderTextColor={placeholderTextColor}

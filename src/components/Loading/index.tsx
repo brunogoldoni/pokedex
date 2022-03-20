@@ -4,7 +4,12 @@ import {ActivityIndicator} from 'react-native';
 
 import {LoadingContainer} from './styles';
 
-const Loading = ({size, color, ...props}) => {
+interface ILoading {
+  size: number,
+  color: string,
+}
+
+const Loading = ({size, color, ...props}: ILoading) => {
   return (
     <LoadingContainer>
       <ActivityIndicator size={size} color={color} {...props} />

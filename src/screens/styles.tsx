@@ -17,7 +17,7 @@ const WrapperContainer = styled.View`
   flex: 1;
 `;
 
-export const Container = ({children}) => (
+export const Container = ({children}: any) => (
   <WrapperContainer>
     <SafeArea>{children}</SafeArea>
   </WrapperContainer>

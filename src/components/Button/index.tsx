@@ -2,7 +2,12 @@ import React from 'react';
 
 import {Container, Label} from './styles';
 
-const Button = ({onPress, label, ...props}) => {
+interface IButton {
+  onPress(): void;
+  label: string;
+}
+
+const Button = ({onPress, label, ...props}: IButton) => {
   return (
     <Container onPress={onPress} {...props}>
       <Label>{label}</Label>

@@ -6,7 +6,12 @@ import {colors} from '../../styles/colors';
 import Icon from 'react-native-vector-icons/Feather';
 import DropdownAlert from 'react-native-dropdownalert';
 
-const Alert = ({type, getRef}) => {
+interface IAlert {
+  type: string,
+  getRef: any,
+}
+
+const Alert = ({type, getRef}: IAlert) => {
   const dropDownAlertRef = useRef();
 
   const getIcon = () => {

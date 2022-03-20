@@ -1,14 +1,14 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  nickName: '',
+  userName: '',
 };
 
-export default function user(state = INITIAL_STATE, action) {
+export default function user(state = INITIAL_STATE, action: any) {
   return produce(state, draft => {
     switch (action.type) {
       case '@user/SET_USER':
-        draft.nickName = action.payload.nickName;
+        draft.userName = action.payload.userName;
         break;
 
       default:

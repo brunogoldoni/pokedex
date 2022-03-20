@@ -10,6 +10,7 @@ import {colors} from '../../styles/colors';
 
 import {Container, Footer, WrapperInput} from '../styles';
 import {Content, IMGIntroduction} from './styles';
+import { StringableActionCreator } from '@redux-saga/types';
 
 const Introduction = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Introduction = () => {
 
   const [nickName, setNickName] = useState('');
 
-  const handleSetUser = text => {
+  const handleSetUser = (text: string) => {
     dispatch(setUser(nickName));
 
     navigation.navigate('SignIn');
@@ -34,7 +35,7 @@ const Introduction = () => {
           <Input
             // returnKeyType='Send'
             placeholder="Digite seu apelido"
-            onChangeText={text => setNickName(text)}
+            onChangeText={(text: string) => setNickName(text)}
             placeholderTextColor={`${colors.phTextColor}`}
           />
         </WrapperInput>
@@ -42,7 +43,7 @@ const Introduction = () => {
         <Button
           label="Avançar"
           disabled={!nickName}
-          onPress={() => handleSetUser()}
+          onPress={(text: string) => handleSetUser(text)}
         />
       </Footer>
     </Container>

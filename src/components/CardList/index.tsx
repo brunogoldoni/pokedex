@@ -2,7 +2,13 @@ import React from 'react';
 
 import {CardContainer, Name, WrapperIMG, IMGPokemon} from './styles';
 
-const CardList = ({onPress, name, imageUrl}) => {
+interface ICardList {
+  onPress(): void,
+  name: string,
+  imageUrl: any;
+}
+
+const CardList = ({onPress, name, imageUrl}: ICardList) => {
   return (
     <CardContainer onPress={onPress}>
       <Name>{name}</Name>
