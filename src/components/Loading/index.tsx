@@ -5,7 +5,7 @@ import {ActivityIndicator} from 'react-native';
 import {LoadingContainer} from './styles';
 
 interface ILoading {
-  size: number,
+  size: string,
   color: string,
 }
 
