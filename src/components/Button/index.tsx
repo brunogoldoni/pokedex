@@ -5,14 +5,14 @@ import {Container, Label} from './styles';
 interface IButton {
   label: string;
   onPress(): void;
-  isActive?: boolean;
+  disabled?: boolean;
 }
 
-const Button = ({onPress, label, isActive, ...props}: IButton) => {
+const Button = ({onPress, label, disabled, ...props}: IButton) => {
   return (
     <Container
       onPress={onPress}
-      disabled={isActive}
+      disabled={disabled}
       {...props}
     >
       <Label>{label}</Label>
