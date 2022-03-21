@@ -3,16 +3,30 @@ import React from 'react';
 import {Container} from './styles';
 
 interface IInput {
-  onChangeText(): void,
-  placeholder: string,
-  placeholderTextColor: string,
+  placeholder: string;
+  autoCorrect?: boolean;
+  autoCapitalize: 'none' | 'sentences' | 'words' | 'characters' | undefined;
+  secureTextEntry?: boolean;
+  placeholderTextColor: string;
+  onChangeText: (value: string) => void;
 }
 
-const Input = ({onChangeText, placeholder, placeholderTextColor, ...props}: IInput) => {
+const Input = ({
+  placeholder,
+  autoCorrect,
+  autoCapitalize,
+  secureTextEntry,
+  placeholderTextColor,
+  onChangeText,
+  ...props
+}: IInput) => {
   return (
     <Container
       placeholder={placeholder}
+      autoCorrect={autoCorrect}
       onChangeText={onChangeText}
+      autoCapitalize={autoCapitalize}
+      secureTextEntry={secureTextEntry}
       placeholderTextColor={placeholderTextColor}
       {...props}
     />
