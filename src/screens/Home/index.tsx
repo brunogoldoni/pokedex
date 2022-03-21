@@ -15,7 +15,7 @@ import {
   Content,
   WrapperGrettings,
   GrettingsText,
-  NickName,
+  UserName,
   WrapperItems,
   WrapperTitle,
   Title,
@@ -26,9 +26,9 @@ import {Container} from '../styles';
 
 const Home = () => {
   const navigation = useNavigation();
-  const {AlertService} = useAlert();
+  const { AlertService } = useAlert();
 
-  const {nickName} = useSelector(state => state.user);
+  const {userName} = useSelector(state => state.user);
 
   const limitPagination = 20;
 
@@ -38,7 +38,7 @@ const Home = () => {
   const [pokemonList, setPokemonList] = useState([]);
   const [isLastPage, setIsLastPage] = useState(false);
 
-  const getAllPokemons = async offset => {
+  const getAllPokemons = async (offset: any) => {
     setIsLoading(true);
     setPage(offset);
 
@@ -56,7 +56,7 @@ const Home = () => {
           setPokemonList(pokemonList.concat(data.results));
         }
       }
-    } catch (err) {
+    } catch (err: any) {
       AlertService.error('Erro ao buscar dados, tente novamente.');
     } finally {
       setIsLoading(false);
@@ -87,7 +87,7 @@ const Home = () => {
 
   const PokemonItems = useMemo(
     () =>
-      ({item}) => {
+      ({item}: any) => {
         const {name, url} = item.item;
 
         const pokemonNumber = url
@@ -112,7 +112,7 @@ const Home = () => {
       <Content>
         <WrapperGrettings>
           <GrettingsText>{grettings} </GrettingsText>
-          <NickName>{nickName}.</NickName>
+          <UserName>{userName}.</UserName>
         </WrapperGrettings>
 
         <WrapperItems>

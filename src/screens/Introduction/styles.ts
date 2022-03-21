@@ -7,4 +7,6 @@ export const Content = styled.View`
   padding: 24px;
 `;
 
-export const IMGIntroduction = styled(Image).attrs({})``;
+export const IMGIntroduction = styled(Image).attrs({})`
+  min-height: 800px;
+`;

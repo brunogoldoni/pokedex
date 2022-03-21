@@ -11,9 +11,12 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+
 import {AlertProvider} from './src/context/AlertContext';
+import { AuthProvider } from './src/hooks/auth';
 
 import {store, persistor} from './src/store';
+
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 
@@ -29,7 +32,9 @@ const App = () => {
           <AlertProvider>
             <NavigationContainer>
               <StatusBar barStyle="light-content" backgroundColor="#000" />
-              <Routes />
+              <AuthProvider>
+                <Routes />
+              </AuthProvider>
             </NavigationContainer>
           </AlertProvider>
         </Container>

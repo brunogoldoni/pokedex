@@ -4,3 +4,10 @@ export const setUser = (userName: string) => ({
     userName,
   },
 });
+
+export const authUser = (isLogged: boolean) => ({
+  type: '@user/AUTH_USER',
+  payload: {
+    isLogged,
+  },
+});

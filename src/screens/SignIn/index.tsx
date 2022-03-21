@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
+import { useAuth } from '../../hooks/auth'
+
 import {Input, Button} from '../../components';
 
 import {colors} from '../../styles/colors';
@@ -13,9 +15,10 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
+  const { signIn, isLogging } = useAuth();
 
   const handleSignIn = () => {
-    navigation.navigate('Home');
+    signIn(email, password)
   };
 
   return (
@@ -27,11 +30,10 @@ const SignIn = () => {
       <Footer>
         <WrapperInput>
           <Input
-            // returnKeyType='Next'
             autoCorrect={false}
             autoCapitalize="none"
+            onChangeText={(text: string) => setEmail(text)}
             placeholder="Digite seu e-mail"
-            onChangeText={text => setEmail(text)}
             placeholderTextColor={`${colors.phTextColor}`}
           />
 
@@ -39,14 +41,17 @@ const SignIn = () => {
             secureTextEntry
             autoCorrect={false}
             autoCapitalize="none"
-            // returnKeyType='Send'
+            onChangeText={(text: string) => setPassword(text)}
             placeholder="Digite sua senha"
-            onChangeText={text => setPassword(text)}
             placeholderTextColor={`${colors.phTextColor}`}
           />
         </WrapperInput>
 
-        <Button disabled={!email && !password} label="Entrar" onPress={() => handleSignIn()} />
+        <Button
+          disabled={!email && !password}
+          onPress={() => handleSignIn()}
+          label="Entrar"
+        />
       </Footer>
     </Container>
   );

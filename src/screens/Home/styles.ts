@@ -18,7 +18,7 @@ export const GrettingsText = styled.Text`
   font-weight: 600;
 `;
 
-export const NickName = styled.Text`
+export const UserName = styled.Text`
   color: ${colors.white};
   font-size: 16px;
   font-weight: 600;
