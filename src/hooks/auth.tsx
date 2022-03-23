@@ -35,12 +35,11 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
 
     setIsLogging(true);
-    dispatch(authUser(true));
 
     auth()
     .signInWithEmailAndPassword(email, password)
     .then((account: any) => {
-      console.log('ACCOUNT', account)
+      dispatch(authUser(true));
     })
     .catch((error: any) => {
       const { code } = error;
