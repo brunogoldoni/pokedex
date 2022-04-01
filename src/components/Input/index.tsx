@@ -1,36 +1,39 @@
 import React from 'react';
 
-import {Container} from './styles';
+import { Container } from './styles';
 
-interface IInput {
-  placeholder: string;
-  autoCorrect?: boolean;
-  autoCapitalize: 'none' | 'sentences' | 'words' | 'characters' | undefined;
-  secureTextEntry?: boolean;
-  placeholderTextColor: string;
-  onChangeText: (value: string) => void;
+export interface IInput {
+	value?: string;
+	placeholder?: string;
+	autoCorrect?: boolean;
+	autoCapitalize?: boolean;
+	secureTextEntry?: boolean;
+	placeholderTextColor?: string;
+	onChangeText?: (value: string) => void;
 }
 
 const Input = ({
-  placeholder,
-  autoCorrect,
-  autoCapitalize,
-  secureTextEntry,
-  placeholderTextColor,
-  onChangeText,
-  ...props
+	value,
+	placeholder,
+	autoCorrect,
+	onChangeText,
+	autoCapitalize,
+	secureTextEntry,
+	placeholderTextColor,
+	...props
 }: IInput) => {
-  return (
-    <Container
-      placeholder={placeholder}
-      autoCorrect={autoCorrect}
-      onChangeText={onChangeText}
-      autoCapitalize={autoCapitalize}
-      secureTextEntry={secureTextEntry}
-      placeholderTextColor={placeholderTextColor}
-      {...props}
-    />
-  );
+	return (
+		<Container
+			value={value}
+			placeholder={placeholder}
+			autoCorrect={autoCorrect}
+			onChangeText={onChangeText}
+			autoCapitalize={autoCapitalize}
+			secureTextEntry={secureTextEntry}
+			placeholderTextColor={placeholderTextColor}
+			{...props}
+		/>
+	);
 };
 
 export default Input;

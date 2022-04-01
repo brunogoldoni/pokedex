@@ -4,3 +4,4 @@ export {default as CardList} from './CardList';
 export {default as EmptyComponent} from './EmptyComponent';
 export {default as Input} from './Input';
 export {default as Loading} from './Loading';
+export {default as ControlledInput} from './ControlledInput';

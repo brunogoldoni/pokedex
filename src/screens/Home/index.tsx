@@ -1,154 +1,151 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect, useMemo} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {RefreshControl} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { RefreshControl } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import api from '../../services/api';
 
-import {useAlert} from '../../context/AlertContext';
-import {CardList, EmptyComponent, Loading} from '../../components';
+import { useAlert } from '../../context/AlertContext';
+import { CardList, EmptyComponent } from '../../components';
 
-import {PokemonGO} from '../icons';
+import { PokemonGO } from '../icons';
+
+import { IPokemon } from '../../interfaces/pokemon';
 
 import {
-  Content,
-  WrapperGrettings,
-  GrettingsText,
-  UserName,
-  WrapperItems,
-  WrapperTitle,
-  Title,
-  WrapperList,
-  List,
+	Content,
+	WrapperGrettings,
+	GrettingsText,
+	UserName,
+	WrapperItems,
+	WrapperTitle,
+	Title,
+	WrapperList,
+	List
 } from './styles';
-import {Container} from '../styles';
+import { Container } from '../styles';
 
 const Home = () => {
-  const navigation = useNavigation();
-  const { AlertService } = useAlert();
+	const navigation = useNavigation();
+	const { AlertService } = useAlert();
 
-  const {userName} = useSelector(state => state.user);
+	const { userName } = useSelector((state) => state.user);
 
-  const limitPagination = 20;
+	const limitPagination = 20;
 
-  const [page, setPage] = useState(0);
-  const [grettings, setGrettings] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [pokemonList, setPokemonList] = useState([]);
-  const [isLastPage, setIsLastPage] = useState(false);
+	const [ page, setPage ] = useState(0);
+	const [ grettings, setGrettings ] = useState('');
+	const [ isLoading, setIsLoading ] = useState(false);
+	const [ pokemonList, setPokemonList ] = useState<IPokemon[]>([]);
+	const [ isLastPage, setIsLastPage ] = useState(false);
 
-  const getAllPokemons = async (offset: any) => {
-    setIsLoading(true);
-    setPage(offset);
+	const getAllPokemons = async (offset: any) => {
+		setIsLoading(true);
+		setPage(offset);
 
-    try {
-      const {data} = await api.get(
-        `/pokemon?offset=${offset}&limit=${limitPagination}`,
-      );
+		try {
+			const { data } = await api.get(`/pokemon?offset=${offset}&limit=${limitPagination}`);
 
-      if (data) {
-        setIsLastPage(!data.next);
+			if (data) {
+				setIsLastPage(!data.next);
 
-        if (offset === 0) {
-          setPokemonList(data.results);
-        } else {
-          setPokemonList(pokemonList.concat(data.results));
-        }
-      }
-    } catch (err: any) {
-      AlertService.error('Erro ao buscar dados, tente novamente.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+				const _pokemons = [];
 
-  const onEndReached = () => {
-    if (!isLastPage) {
-      getAllPokemons(page + limitPagination);
-    }
-  };
+				for await (const _pokemon of data.results) {
+					const pokemonImage = (await api.get(_pokemon.url)).data.sprites.front_default;
 
-  useEffect(() => {
-    getAllPokemons(0);
-  }, []);
+					_pokemons.push({ ..._pokemon, pokemonImage });
+				}
 
-  useEffect(() => {
-    const currentHour = String(new Date().getHours());
+				if (offset === 0) {
+					setPokemonList(_pokemons);
+				} else {
+					setPokemonList(pokemonList.concat(_pokemons));
+				}
+			}
+		} catch (err) {
+			AlertService.error('Erro ao buscar dados, tente novamente mais tarde.');
+		} finally {
+			setIsLoading(false);
+		}
+	};
 
-    if (currentHour < 12) {
-      setGrettings('Bom dia,');
-    } else if (currentHour >= 12 && currentHour < 18) {
-      setGrettings('Boa tarde,');
-    } else {
-      setGrettings('Boa noite,');
-    }
-  }, []);
+	const onEndReached = () => {
+		if (!isLastPage) {
+			getAllPokemons(page + limitPagination);
+		}
+	};
 
-  const PokemonItems = useMemo(
-    () =>
-      ({item}: any) => {
-        const {name, url} = item.item;
+	useEffect(() => {
+		getAllPokemons(0);
+	}, []);
 
-        const pokemonNumber = url
-          .replace('https://pokeapi.co/api/v2/pokemon/', '')
-          .replace('/', '');
+	useEffect(() => {
+		const currentHour = new Date().getHours();
 
-        const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${pokemonNumber}.png`;
+		if (currentHour < 12) {
+			setGrettings('Bom dia,');
+		} else if (currentHour >= 12 && currentHour < 18) {
+			setGrettings('Boa tarde,');
+		} else {
+			setGrettings('Boa noite,');
+		}
+	}, []);
 
-        return (
-          <CardList
-            name={name}
-            imageUrl={imageUrl}
-            onPress={() => navigation.navigate('PokemonInfos', {name, url})}
-          />
-        );
-      },
-    [pokemonList],
-  );
+	const PokemonItems = useMemo(
+		() => ({ item }: any) => {
+			const { name, url, pokemonImage } = item.item;
 
-  return (
-    <Container>
-      <Content>
-        <WrapperGrettings>
-          <GrettingsText>{grettings} </GrettingsText>
-          <UserName>{userName}.</UserName>
-        </WrapperGrettings>
+			return (
+				<CardList
+					name={name}
+					imageUrl={pokemonImage}
+					onPress={() => navigation.navigate('PokemonInfos', { name, url, pokemonImage })}
+				/>
+			);
+		},
+		[ pokemonList ]
+	);
 
-        <WrapperItems>
-          <WrapperTitle>
-            <Title>Seja Bem-Vindo,</Title>
-            <Title>ao Mundo Pokémon.</Title>
-          </WrapperTitle>
-          <PokemonGO />
-        </WrapperItems>
+	return (
+		<Container>
+			<Content>
+				<WrapperGrettings>
+					<GrettingsText>{grettings} </GrettingsText>
+					<UserName>{userName}.</UserName>
+				</WrapperGrettings>
 
-        {isLoading ? (
-          <Loading size="large" />
-        ) : (
-          <WrapperList>
-            <List
-              data={pokemonList}
-              onEndReachedThreshold={1}
-              onEndReached={() => onEndReached()}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={item => <PokemonItems item={item} />}
-              ListEmptyComponent={
-                <EmptyComponent message="Não foram encontrados Pokémons" />
-              }
-              refreshControl={
-                <RefreshControl
-                  refreshing={isLoading}
-                  onRefresh={() => getAllPokemons(0)}
-                />
-              }
-            />
-          </WrapperList>
-        )}
-      </Content>
-    </Container>
-  );
+				<WrapperItems>
+					<WrapperTitle>
+						<Title>Seja Bem-Vindo,</Title>
+						<Title>ao mundo Pokémon.</Title>
+					</WrapperTitle>
+					<PokemonGO />
+				</WrapperItems>
+
+				{
+					// isLoading ? (
+					//   <Loading size="large" />
+					// ) : (
+					<WrapperList>
+						<List
+							data={pokemonList}
+							onEndReachedThreshold={1}
+							onEndReached={() => onEndReached()}
+							showsVerticalScrollIndicator={false}
+							keyExtractor={(item, index) => index.toString()}
+							renderItem={(item) => <PokemonItems item={item} />}
+							ListEmptyComponent={<EmptyComponent message="Não foi possível listar os Pokémons" />}
+							refreshControl={
+								<RefreshControl refreshing={isLoading} onRefresh={() => getAllPokemons(0)} />
+							}
+						/>
+					</WrapperList>
+					// )
+				}
+			</Content>
+		</Container>
+	);
 };
 
 export default Home;

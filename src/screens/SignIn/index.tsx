@@ -1,60 +1,71 @@
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
-import { useAuth } from '../../hooks/auth'
+import { useAuth } from '../../hooks/auth';
 
-import {Input, Button} from '../../components';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import {colors} from '../../styles/colors';
+import { ControlledInput, Button } from '../../components';
 
-import {Container, WrapperInput, Footer} from '../styles';
-import {Content, IMGSignIn} from './styles';
+import { colors } from '../../styles/colors';
+
+import { Container, WrapperInput, Footer } from '../styles';
+import { Content, IMGSignIn } from './styles';
+
+import { IFormData } from '../../interfaces/form-data';
+
+const signInSchema = yup.object({
+	email: yup.string().email("E-mail inválido").required("Informe o seu nome"),
+	password: yup.string().min(6, "A senha deve conter no mínimo 6 dígitos").required("Informe seu e-mail")
+});
 
 const SignIn = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+	const { control, handleSubmit, formState: { errors } } = useForm<IFormData>({
+		resolver: yupResolver(signInSchema),
+	});
 
-  const navigation = useNavigation();
-  const { signIn, isLogging } = useAuth();
+	const { signIn, isLogging } = useAuth();
 
-  const handleSignIn = () => {
-    signIn(email, password)
-  };
+	const handleSignIn = (data: IFormData) => {
+		signIn(data.email, data.password);
+	};
 
-  return (
-    <Container>
-      <Content>
-        <IMGSignIn source={require('../../assets/poke.png')} />
-      </Content>
+	return (
+		<Container>
+			<Content>
+				<IMGSignIn source={require('../../assets/poke.png')} />
+			</Content>
 
-      <Footer>
-        <WrapperInput>
-          <Input
-            autoCorrect={false}
-            autoCapitalize="none"
-            onChangeText={(text: string) => setEmail(text)}
-            placeholder="Digite seu e-mail"
-            placeholderTextColor={`${colors.phTextColor}`}
-          />
+			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} touchSoundDisabled>
+				<Footer>
+					<WrapperInput>
+						<ControlledInput
+							name="email"
+							control={control}
+							error={errors.email}
+							placeholder="Digite seu e-mail"
+							placeholderTextColor={`${colors.phTextColor}`}
+						/>
 
-          <Input
-            secureTextEntry
-            autoCorrect={false}
-            autoCapitalize="none"
-            onChangeText={(text: string) => setPassword(text)}
-            placeholder="Digite sua senha"
-            placeholderTextColor={`${colors.phTextColor}`}
-          />
-        </WrapperInput>
+						<ControlledInput
+							name="password"
+							secureTextEntry
+							control={control}
+							error={errors.password}
+							placeholder="Digite sua senha"
+							placeholderTextColor={`${colors.phTextColor}`}
+						/>
+					</WrapperInput>
 
-        <Button
-          disabled={!email && !password}
-          onPress={() => handleSignIn()}
-          label="Entrar"
-        />
-      </Footer>
-    </Container>
-  );
+					<Button
+						onPress={handleSubmit(handleSignIn)}
+						label="Entrar" />
+				</Footer>
+			</TouchableWithoutFeedback>
+		</Container>
+	);
 };
 
 export default SignIn;

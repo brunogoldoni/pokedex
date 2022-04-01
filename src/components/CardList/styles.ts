@@ -28,8 +28,8 @@ export const WrapperIMG = styled.View`
 `;
 
 export const IMGPokemon = styled(Image).attrs({})`
-  width: 50px;
-  height: 50px;
+  min-width: 120px;
+  min-height: 120px;
   position: relative;
   top: 8px;
 `;

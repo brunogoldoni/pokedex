@@ -6,7 +6,7 @@ export const colors = {
 
   white: '#FFFFFF',
 
-  red: '#E81129',
+  error: '#E81129',
 
   phTextColor: '#696969',
 

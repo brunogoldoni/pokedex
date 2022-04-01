@@ -8,6 +8,8 @@ import api from '../../services/api';
 import {useAlert} from '../../context/AlertContext';
 import {Loading} from '../../components';
 
+import { IPokemonInfos } from '../../interfaces/pokemon';
+
 import {Container} from '../styles';
 import {
   Header,
@@ -28,13 +30,13 @@ import {
 
 const PokemonInfos = () => {
   const navigation = useNavigation();
-  const {AlertService} = useAlert();
+  const { AlertService } = useAlert();
 
   const route = useRoute();
-  const {name, url} = route.params;
+  const {name, pokemonImage} = route.params as any;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [pokemon, setPokemon] = useState(null);
+  const [pokemon, setPokemon] = useState<IPokemonInfos>();
 
   const getPokemon = async () => {
     setIsLoading(true);
@@ -42,20 +44,9 @@ const PokemonInfos = () => {
     try {
       const {data} = await api.get(`/pokemon/${name}`);
 
-      const pokemonNumber = url
-        .replace('https://pokeapi.co/api/v2/pokemon/', '')
-        .replace('/', '');
-
-      const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${pokemonNumber}.png`;
-
-      const _data = {
-        imageUrl,
-        infos: data,
-      };
-
-      setPokemon(_data);
+      setPokemon(data);
     } catch (err) {
-      AlertService.error('Erro ao buscar dados, tente novamente.');
+      AlertService.error('Erro ao buscar dados, tente novamente mais tarde.');
     } finally {
       setIsLoading(false);
     }
@@ -81,11 +72,11 @@ const PokemonInfos = () => {
       ) : (
         <Scroll>
           <Content>
-            {pokemon && pokemon.imageUrl && (
-              <IMGInfosPokemon source={{uri: pokemon.imageUrl}} />
+            {pokemon && pokemonImage && (
+              <IMGInfosPokemon source={{uri: pokemonImage}} />
             )}
 
-            {pokemon && pokemon.infos.name && <Name>{pokemon.infos.name}</Name>}
+            {pokemon && pokemon?.name && <Name>{pokemon?.name}</Name>}
           </Content>
 
           <Footer>
@@ -96,8 +87,8 @@ const PokemonInfos = () => {
                 </WrapperPokeball>
                 <SkillsTitle>
                   Tipo:{' '}
-                  {pokemon && pokemon.infos.types[0].type.name && (
-                    <SkillsText>{pokemon.infos.types[0].type.name}</SkillsText>
+                  {pokemon && pokemon?.types[0]?.type.name && (
+                    <SkillsText>{pokemon?.types[0]?.type.name}</SkillsText>
                   )}
                 </SkillsTitle>
               </WrapperItems>
@@ -108,8 +99,8 @@ const PokemonInfos = () => {
                 </WrapperPokeball>
                 <SkillsTitle>
                   Peso:{' '}
-                  {pokemon && pokemon.infos.weight && (
-                    <SkillsText>{pokemon.infos.weight} kg</SkillsText>
+                  {pokemon && pokemon?.weight && (
+                    <SkillsText>{pokemon?.weight} kg</SkillsText>
                   )}
                 </SkillsTitle>
               </WrapperItems>
@@ -120,9 +111,9 @@ const PokemonInfos = () => {
                 </WrapperPokeball>
                 <SkillsTitle>
                   Índice de jogo:{' '}
-                  {pokemon && pokemon.infos.game_indices[0].game_index && (
+                  {pokemon && pokemon?.game_indices[0]?.game_index && (
                     <SkillsText>
-                      {pokemon.infos.game_indices[0].game_index}
+                      {pokemon?.game_indices[0]?.game_index}
                     </SkillsText>
                   )}
                 </SkillsTitle>
@@ -134,9 +125,9 @@ const PokemonInfos = () => {
                 </WrapperPokeball>
                 <SkillsTitle>
                   Habilidade:{' '}
-                  {pokemon && pokemon.infos.abilities[0].ability.name && (
+                  {pokemon && pokemon?.abilities[0]?.ability?.name && (
                     <SkillsText>
-                      {pokemon.infos.abilities[0].ability.name}
+                      {pokemon?.abilities[0]?.ability?.name}
                     </SkillsText>
                   )}
                 </SkillsTitle>

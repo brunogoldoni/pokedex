@@ -1,52 +1,70 @@
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import React from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import {setUser} from '../../store/modules/user/actions';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
 
-import {Input, Button} from '../../components';
+import { useDispatch } from 'react-redux';
 
-import {colors} from '../../styles/colors';
+import { setUser } from '../../store/modules/user/actions';
 
-import {Container, Footer, WrapperInput} from '../styles';
-import {Content, IMGIntroduction} from './styles';
+import { ControlledInput, Button } from '../../components';
+
+import { colors } from '../../styles/colors';
+
+import { Container, Footer, WrapperInput } from '../styles';
+import { Content, IMGIntroduction } from './styles';
+
+import { IFormData } from '../../interfaces/form-data';
+
+const userNameSchema = yup.object({
+	userName: yup.string().required("Informe o seu nome")
+});
 
 const Introduction = () => {
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
+	const dispatch = useDispatch();
+	const navigation = useNavigation();
 
-  const [userName, setUserName] = useState('');
+	const { control, handleSubmit, formState: { errors } } = useForm<IFormData>({
+		resolver: yupResolver(userNameSchema),
+	});
 
-  const handleSetUser = () => {
-    dispatch(setUser(userName));
+	const handleSetUser = (data: IFormData) => {
+		dispatch(setUser(data.userName));
 
-    navigation.navigate('SignIn');
-  };
+		navigation.navigate('SignIn');
+	};
 
-  return (
-    <Container>
-      <Content>
-        <IMGIntroduction source={require('../../assets/newtwo.png')} />
-      </Content>
+	return (
+		<Container>
+			<Content>
+				<IMGIntroduction source={require('../../assets/newtwo.png')} />
+			</Content>
 
-      <Footer>
-        <WrapperInput>
-          <Input
-            autoCapitalize="sentences"
-            placeholder="Digite seu apelido"
-            onChangeText={(text: string) => setUserName(text)}
-            placeholderTextColor={`${colors.phTextColor}`}
-          />
-        </WrapperInput>
+			<Footer>
+				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} touchSoundDisabled>
+					<WrapperInput>
+						<ControlledInput
+							autoCapitalize
+							name="userName"
+							control={control}
+							error={errors.userName}
+							placeholder="Digite seu apelido"
+							placeholderTextColor={`${colors.phTextColor}`}
 
-        <Button
-          label="Avançar"
-          disabled={!userName}
-          onPress={() => handleSetUser()}
-        />
-      </Footer>
-    </Container>
-  );
+						/>
+					</WrapperInput>
+				</TouchableWithoutFeedback>
+
+				<Button
+					label="Avançar"
+					onPress={handleSubmit(handleSetUser)}
+				/>
+			</Footer>
+		</Container>
+	);
 };
 
 export default Introduction;

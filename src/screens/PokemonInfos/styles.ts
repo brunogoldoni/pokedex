@@ -4,7 +4,7 @@ import {Image, ScrollView} from 'react-native';
 import {colors} from '../../styles/colors';
 
 export const Header = styled.View`
-  margin-top: 24px;
+  margin: 24px 0;
 `;
 
 export const GOBackButtonContainer = styled.TouchableOpacity`
@@ -36,7 +36,6 @@ export const Content = styled.TouchableOpacity`
   background-color: ${colors.mediumDark};
   border-radius: 20px;
   flex: 2;
-  margin-top: 32px;
 `;
 
 export const IMGInfosPokemon = styled(Image).attrs({})`
