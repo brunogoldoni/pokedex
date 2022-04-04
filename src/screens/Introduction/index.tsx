@@ -47,9 +47,9 @@ const Introduction = () => {
 				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} touchSoundDisabled>
 					<WrapperInput>
 						<ControlledInput
-							autoCapitalize
 							name="userName"
 							control={control}
+							autoCapitalize="words"
 							error={errors.userName}
 							placeholder="Digite seu apelido"
 							placeholderTextColor={`${colors.phTextColor}`}

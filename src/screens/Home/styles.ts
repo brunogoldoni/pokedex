@@ -3,10 +3,6 @@ import {FlatList} from 'react-native';
 
 import {colors} from '../../styles/colors';
 
-export const Content = styled.View`
-  flex: 1;
-`;
-
 export const WrapperGrettings = styled.View`
   align-items: center;
   flex-direction: row;
@@ -18,14 +14,12 @@ export const GrettingsText = styled.Text`
   font-weight: 600;
 `;
 
-export const UserName = styled.Text`
-  color: ${colors.white};
-  font-size: 16px;
-  font-weight: 600;
-`;
-
 export const WrapperTitle = styled.View`
   margin-top: 8px;
+`;
+
+export const WrapperPokemonGO = styled.TouchableOpacity`
+
 `;
 
 export const WrapperItems = styled.View`

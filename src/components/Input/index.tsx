@@ -6,10 +6,10 @@ export interface IInput {
 	value?: string;
 	placeholder?: string;
 	autoCorrect?: boolean;
-	autoCapitalize?: boolean;
 	secureTextEntry?: boolean;
 	placeholderTextColor?: string;
 	onChangeText?: (value: string) => void;
+	autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
 }
 
 const Input = ({

@@ -13,17 +13,16 @@ import { PokemonGO } from '../icons';
 import { IPokemon } from '../../interfaces/pokemon';
 
 import {
-	Content,
 	WrapperGrettings,
 	GrettingsText,
-	UserName,
 	WrapperItems,
 	WrapperTitle,
 	Title,
+	WrapperPokemonGO,
 	WrapperList,
 	List
 } from './styles';
-import { Container } from '../styles';
+import { Container, Content, UserName } from '../styles';
 
 const Home = () => {
 	const navigation = useNavigation();
@@ -33,11 +32,11 @@ const Home = () => {
 
 	const limitPagination = 20;
 
-	const [ page, setPage ] = useState(0);
-	const [ grettings, setGrettings ] = useState('');
-	const [ isLoading, setIsLoading ] = useState(false);
-	const [ pokemonList, setPokemonList ] = useState<IPokemon[]>([]);
-	const [ isLastPage, setIsLastPage ] = useState(false);
+	const [page, setPage] = useState(0);
+	const [grettings, setGrettings] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
+	const [pokemonList, setPokemonList] = useState<IPokemon[]>([]);
+	const [isLastPage, setIsLastPage] = useState(false);
 
 	const getAllPokemons = async (offset: any) => {
 		setIsLoading(true);
@@ -104,7 +103,7 @@ const Home = () => {
 				/>
 			);
 		},
-		[ pokemonList ]
+		[pokemonList]
 	);
 
 	return (
@@ -120,13 +119,12 @@ const Home = () => {
 						<Title>Seja Bem-Vindo,</Title>
 						<Title>ao mundo Pokémon.</Title>
 					</WrapperTitle>
-					<PokemonGO />
+					<WrapperPokemonGO onPress={() => navigation.navigate('Profile')}>
+						<PokemonGO />
+					</WrapperPokemonGO>
 				</WrapperItems>
 
 				{
-					// isLoading ? (
-					//   <Loading size="large" />
-					// ) : (
 					<WrapperList>
 						<List
 							data={pokemonList}
@@ -141,7 +139,6 @@ const Home = () => {
 							}
 						/>
 					</WrapperList>
-					// )
 				}
 			</Content>
 		</Container>

@@ -3,30 +3,6 @@ import {Image, ScrollView} from 'react-native';
 
 import {colors} from '../../styles/colors';
 
-export const Header = styled.View`
-  margin: 24px 0;
-`;
-
-export const GOBackButtonContainer = styled.TouchableOpacity`
-  width: 100px;
-`;
-
-export const GOBackButtonContent = styled.View`
-  align-items: center;
-  flex-direction: row;
-  background-color: ${colors.mediumDark};
-  border-radius: 10px;
-  padding: 8px;
-`;
-
-export const GOBackText = styled.Text`
-  align-items: center;
-  color: ${colors.white};
-  font-size: 14px;
-  font-weight: 700;
-  align-self: center;
-`;
-
 export const Scroll = styled(ScrollView).attrs({
   flex: 1,
 })``;

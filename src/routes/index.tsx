@@ -7,6 +7,7 @@ import Home from '../screens/Home';
 import SignIn from '../screens/SignIn';
 import Introduction from '../screens/Introduction';
 import PokemonInfos from '../screens/PokemonInfos';
+import Profile from '../screens/Profile';
 
 const Routes = () => {
   const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ const Routes = () => {
           >
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="PokemonInfos" component={PokemonInfos} />
+            <Stack.Screen name="Profile" component={Profile} />
           </Stack.Navigator>
         :
           <Stack.Navigator

@@ -10,12 +10,7 @@ import {Loading} from '../../components';
 
 import { IPokemonInfos } from '../../interfaces/pokemon';
 
-import {Container} from '../styles';
 import {
-  Header,
-  GOBackButtonContainer,
-  GOBackButtonContent,
-  GOBackText,
   Scroll,
   Content,
   IMGInfosPokemon,
@@ -27,6 +22,13 @@ import {
   SkillsTitle,
   SkillsText,
 } from './styles';
+import {
+  Container ,
+  Header,
+  GOBackButtonContainer,
+  GOBackButtonContent,
+  GOBackText
+} from '../styles';
 
 const PokemonInfos = () => {
   const navigation = useNavigation();

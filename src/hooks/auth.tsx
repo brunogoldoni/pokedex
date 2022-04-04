@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import { Alert } from 'react-native';
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { authUser } from '../store/modules/user/actions';
 
 import auth from '@react-native-firebase/auth';
@@ -28,7 +28,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   const dispatch = useDispatch();
 
   async function signIn(email: string, password: string) {
-    if(!email || !password) {
+    if (!email || !password) {
       return (
         Alert.alert('Login', 'Informe o e-mail e a senha.')
       )
@@ -37,20 +37,20 @@ function AuthProvider({ children }: AuthProviderProps) {
     setIsLogging(true);
 
     auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((account: any) => {
+      .signInWithEmailAndPassword(email, password)
+      .then((account: any) => {
       dispatch(authUser(true));
     })
     .catch((error: any) => {
       const { code } = error;
 
-      if(code === 'auth/user-not-found' || code === 'auth/wrong-password') {
-        return Alert.alert('Login', 'E-mail e/ou senha inválido.')
-      } else {
-        return Alert.alert('Login', 'Não foi possível realizar o login.')
-      }
-    })
-    .finally(() => setIsLogging(false))
+        if (code === 'auth/user-not-found' || code === 'auth/wrong-password') {
+          return Alert.alert('Login', 'E-mail e/ou senha inválido.')
+        } else {
+          return Alert.alert('Login', 'Não foi possível realizar o login.')
+        }
+      })
+      .finally(() => setIsLogging(false))
 
   }
 
@@ -66,7 +66,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
 function useAuth() {
   const context = useContext(AuthContext);
-  
+
   return context
 }
 
